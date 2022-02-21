@@ -67,7 +67,54 @@ flowchart LR
 ### 相关调试记录
 
 - 若 https 证书存在问题  可加 -k 参数 [取消cURL SSL验证](https://stackoverflow.com/questions/49012543/how-to-disable-curl-ssl-certificate-verification)
-- 
+- 使用knn 需要使用 index.knn 设置创建索引，然后添加一个或多个数据类型为 knn_vector 的字段
+
+```bash
+# 添加支持knn的索引
+curl -X PUT -k "https://admin:admin@localhost:9200/my-index" -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "index.knn": true
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 2
+      },
+      "my_vector2": {
+        "type": "knn_vector",
+        "dimension": 4
+      }
+    }
+  }
+}'
+```
+
+```bash
+# 增添数据 ????
+curl -X POST -k "https://admin:admin@localhost:9200/_bulk" -H 'Content-Type: application/json' -d '{ "my_vector1": [1.5, 2.5], "price": 12.2 } { "my_vector1": [1.5, 2.5], "price": 12.2 } '
+```
+
+```bash
+# knn 查询类型搜索数据 >>
+curl -X GET -k "https://admin:admin@localhost:9200/my-index/_search" 
+
+GET my-index/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2
+      }
+    }
+  }
+}
+
+```
+
 
 
 
