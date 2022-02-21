@@ -117,7 +117,7 @@ python add_data.py
 方式一 curl
 
 ```bash
-# knn 查询类型搜索数据 >>
+# knn 查询类型搜索数据 
 curl -X GET -k "https://admin:admin@localhost:9200/my-index/_search" 
 
 GET my-index/_search
@@ -146,8 +146,7 @@ python change_data.py
 因为选用的 sts 模型为 [paraphrase-multilingual-mpnet-base-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2)
 所以应修改 dimension : 768
 
-
-### ~~create_index.py~~ 
+### ~~create_index.py~~
 
 1. ~~**Adding document:**~~
 

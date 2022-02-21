@@ -24,13 +24,13 @@ client = OpenSearch(
 )
 
 # Create an index with non-default settings.
-index_name = 'qa_index_18522'
+index_name = 'qa_index_4'
 
 query = {
   'size': 5,
   'query': {
     "knn": {
-      "my_vector2": {
+      "Q_vec": {
         "vector": [2, 3, 5, 6],
         "k": 2
       }
