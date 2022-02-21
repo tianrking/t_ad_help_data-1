@@ -41,22 +41,6 @@ client = OpenSearch(
     # ca_certs = ca_certs_path
 )
 
-# 创建索引
-# index_name = 'python-test-index'
-# index_body = {
-#   'settings': {
-#     'index': {
-#       'number_of_shards': 4
-#     }
-#   }
-# }
-
-# response = client.indices.create(index_name, body=index_body)
-# print('\nCreating index:')
-# print(response)
-
-
-
 df = pd.read_csv('/home/tianrking/t_ad_help_data/ad_weixin_qq_com_guide_titile_clean.csv')
 print(df.head())
 # 'Access-Control-Allow-Origin'
