@@ -66,11 +66,18 @@ flowchart LR
 
 ### 相关调试记录
 
-- 若 https 证书存在问题  可加 -k 参数 [取消cURL SSL验证](https://stackoverflow.com/questions/49012543/how-to-disable-curl-ssl-certificate-verification)
-- 使用knn 需要使用 index.knn 设置创建索引，然后添加一个或多个数据类型为 knn_vector 的字段
+#### 若 https 证书存在问题  
+
+可加 -k 参数 [取消cURL SSL验证](https://stackoverflow.com/questions/49012543/how-to-disable-curl-ssl-certificate-verification)
+
+#### 初次使用opensearch-knn
+
+需要使用 index.knn 设置创建索引，然后添加一个或多个数据类型为 knn_vector 的字段
+
+方式一 curl
 
 ```bash
-# 添加支持knn的索引
+# 添加支持knn的索引 
 curl -X PUT -k "https://admin:admin@localhost:9200/my-index" -H 'Content-Type: application/json' -d'
 {
   "settings": {
@@ -91,11 +98,23 @@ curl -X PUT -k "https://admin:admin@localhost:9200/my-index" -H 'Content-Type: a
 }'
 ```
 
+方式二 改写opensearch-py
+
 ```bash
-# 增添数据 ????
-curl -X POST -k "https://admin:admin@localhost:9200/_bulk" -H 'Content-Type: application/json' -d'
-{{ "my_vector1": [1.5, 2.5], "price": 12.2 } { "my_vector1": [1.5, 2.5], "price": 12.2 }} '
+python create_index.py 
 ```
+
+#### 添加数据
+
+可以参考此文件添加数据 以便于初次使用 
+
+```bash
+python add_data.py
+```
+
+#### 搜索数据
+
+方式一 curl
 
 ```bash
 # knn 查询类型搜索数据 >>
@@ -116,6 +135,11 @@ GET my-index/_search
 
 ```
 
+方式二 改写opensearch-py
+
+```bash
+python change_data.py
+```
 
 
 

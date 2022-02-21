@@ -20,50 +20,50 @@ client = OpenSearch(
 )
 
 index_name = 'python-test-index3-knn'
-index_body = {
-  "settings": {
-    "index": {
-      "knn": True,
-      "knn.algo_param.ef_search": 100
-    }
-  },
-  "mappings": {
-    "properties": {
-        "my_vector1": {
-          "type": "knn_vector",
-          "dimension": 2,
-          "method": {
-            "name": "hnsw",
-            "space_type": "l2",
-            "engine": "nmslib",
-            "parameters": {
-              "ef_construction": 128,
-              "m": 24
-            }
-          }
-        }
-    }
-  }
-}
+# index_body = {
+#   "settings": {
+#     "index": {
+#       "knn": True,
+#       "knn.algo_param.ef_search": 100
+#     }
+#   },
+#   "mappings": {
+#     "properties": {
+#         "my_vector1": {
+#           "type": "knn_vector",
+#           "dimension": 2,
+#           "method": {
+#             "name": "hnsw",
+#             "space_type": "l2",
+#             "engine": "nmslib",
+#             "parameters": {
+#               "ef_construction": 128,
+#               "m": 24
+#             }
+#           }
+#         }
+#     }
+#   }
+# }
 
 # response = client.indices.create(index_name, body=index_body)
 # print('\nCreating index:')
 # print(response)
 
 
-# document = {
-#   'text': 'abc',
-#   'my_vector1': [1, 2],
-# }
-# id = '1'
+document = {
+  'text': 'abc',
+  'my_vector1': [1, 3],
+}
+id = '1'
 
-# response = client.index(
-#     index = index_name,
-#     body = document,
-#     id = id,
-#     refresh = True
-# )
-# print(response)
+response = client.index(
+    index = index_name,
+    body = document,
+    id = id,
+    refresh = True
+)
+print(response)
 
 
 query = {
