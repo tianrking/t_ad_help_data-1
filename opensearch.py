@@ -38,19 +38,14 @@ index_name = 'abc_test_index'
 # print(response)
 
 # Add a document to the index.
-# document = {
-#   'Q_text': 'A BC',
-#   'Q_vec': '123',
-#   'Answer': 'abc'
-# }
-# id = '1'
+document = {'vector':'test','text':'abc'}
 
-# response = client.index(
-#     index = index_name,
-#     body = document,
-#     id = id,
-#     refresh = True
-# )
+response = client.index(
+    index = index_name,
+    body = document,
+    id = id,
+    refresh = True
+)
 
 # print('\nAdding document:')
 # print(response)

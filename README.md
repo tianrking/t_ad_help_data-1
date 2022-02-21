@@ -93,7 +93,8 @@ curl -X PUT -k "https://admin:admin@localhost:9200/my-index" -H 'Content-Type: a
 
 ```bash
 # 增添数据 ????
-curl -X POST -k "https://admin:admin@localhost:9200/_bulk" -H 'Content-Type: application/json' -d '{ "my_vector1": [1.5, 2.5], "price": 12.2 } { "my_vector1": [1.5, 2.5], "price": 12.2 } '
+curl -X POST -k "https://admin:admin@localhost:9200/_bulk" -H 'Content-Type: application/json' -d'
+{{ "my_vector1": [1.5, 2.5], "price": 12.2 } { "my_vector1": [1.5, 2.5], "price": 12.2 }} '
 ```
 
 ```bash
