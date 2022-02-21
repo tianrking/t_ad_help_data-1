@@ -62,7 +62,7 @@ flowchart LR
 ~~当csv数据更新的时候 或想实现其他功能的时候 需要使用新的索引[create_index.py](#create_index.py) ，对于此项目包含每一个数据的构造。 如 idea tree , 每一个 data 中都含有 Q_text , Q_vec , Q_ans 三个属性 分别对应标准查询问题，及其对应的向量，以及Q_ans 对应的回答。~~
 ~~当接收到文字讯息时候，将字符串x传入 Opensearch 进行检索 得到对应的 data_X 通过返回的信息可以知道 包含对应的 文字问题，文字问题向量，以及对应答案。 通过返回的文字问题向量与输入文字进行比对，来估计检索的可信度。~~
 
-由于 [opensearch](#https://opensearch.org/) 支持 [knn](https://opensearch.org/docs/latest/search-plugins/knn/index/) 搜索 所以上述方式弃用 下面为opensearch [knn 相关调试记录](#相关调试记录) 
+由于 [opensearch](#https://opensearch.org/) 支持 [knn](https://opensearch.org/docs/latest/search-plugins/knn/index/) 搜索 所以上述方式弃用 下面为opensearch [knn 相关调试记录](#相关调试记录)
 
 ### 相关调试记录
 
