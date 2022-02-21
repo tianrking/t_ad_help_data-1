@@ -106,7 +106,7 @@ python create_index.py
 
 #### 添加数据
 
-可以参考此文件添加数据 以便于初次使用 
+可以参考此文件添加数据 以便于初次使用
 
 ```bash
 python add_data.py
@@ -141,7 +141,10 @@ GET my-index/_search
 python change_data.py
 ```
 
+#### 数据维度修改
 
+因为选用的 sts 模型为 [paraphrase-multilingual-mpnet-base-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2)
+所以应修改 dimension : 768
 
 
 ### ~~create_index.py~~ 

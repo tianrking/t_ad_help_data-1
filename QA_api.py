@@ -55,6 +55,8 @@ client = OpenSearch(
 # print('\nCreating index:')
 # print(response)
 
+
+
 df = pd.read_csv('/home/tianrking/t_ad_help_data/ad_weixin_qq_com_guide_titile_clean.csv')
 print(df.head())
 # 'Access-Control-Allow-Origin'

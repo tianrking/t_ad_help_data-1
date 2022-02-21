@@ -1,5 +1,3 @@
-# comment for safe
-
 from opensearchpy import OpenSearch
 
 host = 'localhost'
@@ -27,32 +25,22 @@ client = OpenSearch(
 
 # Create an index with non-default settings.
 index_name = 'qa_index_18522'
-index_body = {
-    'settings':
-    {
-        'index': {
-            "knn": True,
-            "knn.algo_param.ef_search": 100
-        }
-    },
-    "mappings": {
-        "properties": {
-            "Q_vec": {
-                "type": "knn_vector",
-                "dimension": 3,
-                "method": {
-                    "name": "hnsw",
-                    "space_type": "l2",
-                    "engine": "nmslib",
-                    "parameters": {
-                        "ef_construction": 128,
-                        "m": 24
-                    }
-                }
-            }
-        }
-    }
+
+document = {
+  'Q_text':'abc',
+  'Q_vec':[1,2],
+  'Ans':'ABC',
 }
-response = client.indices.create(index_name, body=index_body)
-print('\nCreating index:')
+
+id = '2'
+
+response = client.index(
+    index = index_name,
+    body = document,
+    id = id,
+    refresh = True
+)
+
+print('\nAdding document:')
 print(response)
+
