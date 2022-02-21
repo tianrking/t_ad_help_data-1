@@ -24,14 +24,19 @@ client = OpenSearch(
 )
 
 # Create an index with non-default settings.
-index_name = 'qa_index_4'
+index_name = 'qa_index_384'
+
+from sentence_transformers import SentenceTransformer, util
+model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+embedding = model.encode("朋友圈信息流", convert_to_tensor=True)
+Q_vec = embedding.tolist()
 
 query = {
   'size': 5,
   'query': {
     "knn": {
       "Q_vec": {
-        "vector": [2, 3, 5, 6],
+        "vector": Q_vec ,
         "k": 2
       }
     }

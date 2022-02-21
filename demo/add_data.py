@@ -24,15 +24,26 @@ client = OpenSearch(
 )
 
 # Create an index with non-default settings.
-index_name = 'qa_index_4'
+index_name = 'qa_index_384'
 
+# document = {
+#   'Q_text':'abc',
+#   'Q_vec':[1,2,3,4],
+#   'Ans':'ABC',
+# }
+
+
+from sentence_transformers import SentenceTransformer, util
+model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+embedding = model.encode("朋友圈信息流", convert_to_tensor=True)
+Q_vec = embedding.tolist()
 document = {
-  'Q_text':'abc',
-  'Q_vec':[1,2,3,4],
+  'Q_text':"朋友圈信息流",
+  'Q_vec':Q_vec,
   'Ans':'ABC',
 }
-
-id = '2'
+print(len(Q_vec))
+id = '20'
 
 response = client.index(
     index = index_name,

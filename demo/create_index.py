@@ -26,7 +26,7 @@ client = OpenSearch(
 )
 
 # Create an index with non-default settings.
-index_name = 'qa_index_4'
+index_name = 'qa_index_384'
 index_body = {
     'settings':
     {
@@ -39,7 +39,7 @@ index_body = {
         "properties": {
             "Q_vec": {
                 "type": "knn_vector",
-                "dimension": 4,
+                "dimension": 384,
                 "method": {
                     "name": "hnsw",
                     "space_type": "l2",

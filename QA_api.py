@@ -41,8 +41,11 @@ client = OpenSearch(
     # ca_certs = ca_certs_path
 )
 
+id=1
+
 df = pd.read_csv('/home/tianrking/t_ad_help_data/ad_weixin_qq_com_guide_titile_clean.csv')
 print(df.head())
+index_name = 'qa_index_768'
 # 'Access-Control-Allow-Origin'
 app = FastAPI()
 app.add_middleware(
@@ -73,20 +76,26 @@ def GET_QA_V1(_Q):
 class Item_sts(BaseModel):
     text: Optional[str] = ""
 
-template_Q = ['我']
-template_Q_vec = ''
-for i in template_Q:
-    embedding = model.encode(i, convert_to_tensor=True)
-    template_Q_vec.append(embedding.tolist())
-    
+   
 @app.post("/v1/QA")
-async def create_item(item: Item_sts):
+def create_item(item: Item_sts):
     embedding = model.encode(item.text, convert_to_tensor=True)
     _Q_vec = embedding.tolist()
-    for _template_Q in template_Q_vec:
-        _template_Q_vec = 
-    print(item.text)
-    # print(item.method)
-    return embedding.tolist()
+    document = {
+        'Q_text':item.text,
+        'Q_vec':embedding.tolist(),
+        'Ans':'ABC',
+    }
+    # id = id + 1 
+    response = client.index(
+        index = index_name,
+        body = document,
+        id = id,
+        refresh = True
+    )
+
+    print('\nAdding document:')
+    # print(df[df['KEY']=='朋友圈信息流'].head(1))
+    return id
 
 # curl -X POST -k "127.0.0.1:1333/api/sts/" -H 'Content-Type: application/json' -d' { "text": "ok" } '
