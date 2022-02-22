@@ -1,5 +1,11 @@
 #
 
+## 直接运行
+
+```bash
+uvicorn QA_api:app --reload --host 0.0.0.0 --port 1333
+```
+
 ## idea tree
 
 ```mermaid
