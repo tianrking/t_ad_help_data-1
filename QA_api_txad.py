@@ -162,7 +162,7 @@ class Item_jzmh(BaseModel):
 
 @app.post("/v1/QA/search/jzmh")
 def create_item(item: Item_jzmh):
-    search_text = item.roomTopic
+    search_text = item.payload
     embedding = model.encode(search_text, convert_to_tensor=True)
     _Q_vec = embedding.tolist()
     
