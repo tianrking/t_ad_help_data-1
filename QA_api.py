@@ -45,7 +45,7 @@ id=1
 
 df = pd.read_csv('/home/tianrking/t_ad_help_data/ad_weixin_qq_com_guide_titile_clean.csv')
 print(df.head())
-index_name = 'qa_index_768'
+index_name = 'qa_index_384'
 # 'Access-Control-Allow-Origin'
 app = FastAPI()
 app.add_middleware(
@@ -77,25 +77,61 @@ class Item_sts(BaseModel):
     text: Optional[str] = ""
 
    
-@app.post("/v1/QA")
+@app.post("/v1/QA/add")
 def create_item(item: Item_sts):
+    
     embedding = model.encode(item.text, convert_to_tensor=True)
     _Q_vec = embedding.tolist()
-    document = {
-        'Q_text':item.text,
-        'Q_vec':embedding.tolist(),
-        'Ans':'ABC',
-    }
-    # id = id + 1 
-    response = client.index(
-        index = index_name,
-        body = document,
-        id = id,
-        refresh = True
-    )
-
+    get_df = df[df['KEY']==item.text]
+    for url in get_df['URL']:
+        id  = url.split('/guide/')[1]
+        print(id)
+        # print(Q_text)
+        embedding = model.encode(item.text, convert_to_tensor=True)
+        _Q_vec = embedding.tolist()
+        document = {
+            'Q_text':item.text,
+            'Q_vec':embedding.tolist(),
+            'Ans':url,
+        }
+        response = client.index(
+            index = index_name,
+            body = document,
+            id = id,
+            refresh = True
+        )
+    # print(len(embedding.tolist()))
     print('\nAdding document:')
     # print(df[df['KEY']=='朋友圈信息流'].head(1))
-    return id
+    
+    return { 'answer':df[df['KEY']==item.text]}
 
 # curl -X POST -k "127.0.0.1:1333/api/sts/" -H 'Content-Type: application/json' -d' { "text": "ok" } '
+
+@app.post("/v1/QA/search")
+def create_item(item: Item_sts):
+    
+    embedding = model.encode(item.text, convert_to_tensor=True)
+    _Q_vec = embedding.tolist()
+    
+    
+    query = {
+        'size': 5,
+        'query': {
+            "knn": {
+            "Q_vec": {
+                "vector": _Q_vec ,
+                "k": 2
+                }
+            }
+        }
+    }
+
+    response = client.search(
+        body = query,
+        index = index_name
+    )
+    print('\nSearch results:')
+    print(response)
+
+    return { 'answer':response}
