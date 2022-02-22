@@ -15,7 +15,7 @@ from pydantic import BaseModel
 
 
 from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
 
 host = 'localhost'
 port = 9200
@@ -36,7 +36,7 @@ client = OpenSearch(
 
 id=1
 
-df = pd.read_csv('/home/tianrking/t_ad_help_data/ad_weixin_qq_com_guide_titile_clean.csv')
+df = pd.read_csv("/home/tianrking/t_ad_help_data/data/ad_weixin_qq_com_guide_titile_clean.csv")
 print(df.head())
 index_name = 'qa_index_384'
 # 'Access-Control-Allow-Origin'
@@ -124,7 +124,7 @@ def create_item(item: Item_sts):
         body = query,
         index = index_name
     )
-    print('\nSearch results:')
+    print('\nSearch results: %s' %str(item.text))
 
     return_data = {}
     
@@ -134,4 +134,4 @@ def create_item(item: Item_sts):
         # return_data.update('Q_text':i['_source']['Q_text'])
         # return { 'answer':response}
 
-    return { 'answer':response}
+    # return { 'answer':response}
