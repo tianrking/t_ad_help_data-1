@@ -1,0 +1,28 @@
+0,手机端收不到消息提醒？,"#### **1.手机端收不到消息提醒，可能是以下原因导致**
+1. 企业微信内，【接受新消息通知】不为开启状态
+2. 企业微信电脑端登录时，手机端【手机始终接收通知】不为开启状态
+3. 企业微信开启了【休息一下】状态
+4. 企业微信开启了【重要联系人消息通知】，仅接收重要联系人消息提醒
+5. 系统设置中，企业微信【允许通知】不为开启状态
+6. 系统设置中，声音提醒未开启
+7. 系统设置为静音
+
+#### **2.Android 系统手机收不到消息提醒，还需检查：**
+1. 系统设置中，【企业微信-允许通知-是否设为重要】是否设置为【重要】
+2. 系统设置中，【锁屏后通知】相关开关，是否设置为锁屏后通知
+3. 系统设置中如果有通知过滤规则，需将企业微信的通知过滤规则设置为【重要】
+4. 后台设置中，网络是否可用。
+5. 如果手机在后台运行、锁屏状态、未运行状态时无法收到提醒，需检查【自启动设置】。可参考《安卓手机消息提醒设置》。
+
+#### **3.手机消息提醒设置：**
+**安卓手机消息提醒设置：**
+- [小米](https://app.work.weixin.qq.com/wework_admin/active_guide_setting?device=xiaomi&type=keepalive ""小米"")
+- [魅族](https://app.work.weixin.qq.com/wework_admin/active_guide_setting?device=meizu&type=keepalive ""魅族"")
+- [华为](https://app.work.weixin.qq.com/wework_admin/active_guide_setting?device=huawei&type=keepalive ""华为"")
+- [三星](https://app.work.weixin.qq.com/wework_admin/active_guide_setting?device=samsung&type=keepalive ""三星"")
+- [Vivo](https://app.work.weixin.qq.com/wework_admin/active_guide_setting?device=vivo&type=keepalive ""vivo"")
+- [Oppo](https://app.work.weixin.qq.com/wework_admin/active_guide_setting?device=oppo&type=keepalive ""OPPO"")
+
+**iOS 系统手机提醒设置：**
+需前往【设置-企业微信-通知】处查看
+![](http://p.qpic.cn/pic_wework/564767920/f2f497e29aa98f991d56ce5d3626308667a42c71b02af7ab/0)"

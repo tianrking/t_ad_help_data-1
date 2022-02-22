@@ -2,6 +2,9 @@
 
 ## 直接运行
 
+QA_api_
+QA_api_wx_ad 
+
 ```bash
 uvicorn QA_api:app --reload --host 0.0.0.0 --port 1333
 ```

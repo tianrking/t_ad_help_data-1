@@ -1,3 +1,4 @@
+from itsdangerous import json
 import pandas as pd
 
 from opensearchpy import OpenSearch
@@ -125,7 +126,12 @@ def create_item(item: Item_sts):
     )
     print('\nSearch results:')
 
+    return_data = {}
+    
     for i in response['hits']['hits']:
-        print(i['_source']['Ans'],i['_score'],i['_id'])
+        print(i['_source']['Q_text'],i['_source']['Ans'],i['_score'],i['_id'])
+        # return {'ANS':i['_source']['Ans']}
+        # return_data.update('Q_text':i['_source']['Q_text'])
+        # return { 'answer':response}
 
     return { 'answer':response}
