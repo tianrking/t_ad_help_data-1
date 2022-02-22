@@ -139,3 +139,62 @@ def create_item(item: Item_sts):
     # print(return_data)
     # print(type(return_data))  dict2json
     return  json.dumps(return_data) 
+
+
+class Item_jzmh(BaseModel):
+    messageId: Optional[str] = ""
+    chatId: Optional[str] = "" # juzi system chatId
+    avatar: Optional[str] = ""
+    roomTopic: Optional[str] = ""
+    roomId: Optional[str] = "" # room wxid nullable
+    contactName: Optional[str] = "" # message conact name
+    contactId: Optional[str] = ""
+    payload: Optional[str] = ""
+    type: Optional[str] = ""
+    timestamp: Optional[str] = "" # message timestamp
+    token: Optional[str] = "" # token
+    botId: Optional[str] = "" # botId
+    contactType: Optional[str] = ""
+    coworker: Optional[str] = "" # is coworker or not
+    botId: Optional[str] = ""
+    botWxid: Optional[str] = ""
+    botWeixin: Optional[str] = ""
+
+@app.post("/v1/QA/search/jzmh")
+def create_item(item: Item_jzmh):
+    search_text = item.roomTopic
+    embedding = model.encode(search_text, convert_to_tensor=True)
+    _Q_vec = embedding.tolist()
+    
+    query = {
+        'size': 5,
+        'query': {
+            "knn": {
+            "Q_vec": {
+                "vector": _Q_vec ,
+                "k": 2
+                }
+            }
+        }
+    }
+
+    response = client.search(
+        body = query,
+        index = index_name
+    )
+    print('\nSearch results: %s' %str(search_text))
+
+    return_data = {}
+    
+    time=0
+    for i in response['hits']['hits']:
+        print(i['_source']['Q_text'],i['_source']['Ans'],i['_score'],i['_id'])
+        # return {'ANS':i['_source']['Ans']}
+        # return_data.update('Q_text':i['_source']['Q_text'])
+        # return { 'answer':response}
+        return_data[time] = {'Q':i['_source']['Q_text'],'Score':i['_score'],'Ans':i['_source']['Ans']}  # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
+        time = time + 1
+    # print(return_data)
+    # print(type(return_data))  dict2json
+    return  json.dumps(return_data) 
+
