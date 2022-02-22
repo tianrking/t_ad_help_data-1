@@ -1,23 +1,15 @@
 import pandas as pd
 
-import pandas as pd
-import json 
 from opensearchpy import OpenSearch
 
 from fastapi import Cookie, FastAPI
 from typing import Optional
 from fastapi import FastAPI
 from fastapi import Request
-import requests
 from typing import List, Optional
-import sys
-import uvicorn
-from fastapi import FastAPI,UploadFile,File
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI,File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Header
-import os
-import requests
 from pydantic import BaseModel
 
 
