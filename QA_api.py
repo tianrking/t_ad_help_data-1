@@ -132,6 +132,19 @@ def create_item(item: Item_sts):
         index = index_name
     )
     print('\nSearch results:')
-    print(response)
-
-    return { 'answer':response}
+    # print(response)
+    
+    # list1= []
+    # for i in json_data:
+    #     i.pop("explanation")
+    #     i.pop("more")
+    #     list1.append(i)
+    # print(response)
+    for i in response['hits']['hits']:
+        print(i['_source']['Ans'],i['_score'],i['_id'])
+    # for i in response:
+    #     print(i)
+    #     # print(i['hits']['hits'][0]['_source']['Ans'])
+    #     # break
+        
+    # return { 'answer':response}
