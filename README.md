@@ -205,3 +205,12 @@ Output
 Search results:
 {'took': 2, 'timed_out': False, '_shards': {'total': 4, 'successful': 4, 'skipped': 0, 'failed': 0}, 'hits': {'total': {'value': 1, 'relation': 'eq'}, 'max_score': 0.60996956, 'hits': [{'_index': 'abc_test_index', '_type': '_doc', '_id': '1', '_score': 0.60996956, '_source': {'Q_text': 'A BC', 'Q_vec': '123', 'Answer': 'abc'}}]}}
 ```
+
+#### 开发环境
+
+```bash
+Ubuntu 18.04.6 LTS
+fastapi                   0.68.2                   pypi_0    pypi
+uvicorn                   0.15.0                   pypi_0    pypi
+sentence-transformers              2.1.0
+transformers                       4.16.2
