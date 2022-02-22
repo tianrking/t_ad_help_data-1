@@ -6,8 +6,8 @@ from opensearchpy import OpenSearch
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
 
-df = pd.read_csv(
-    "/home/tianrking/t_ad_help_data/data/ad_weixin_qq_com_guide_titile_clean.csv")
+df = pd.read_csv("/home/tianrking/t_ad_help_data/data/work_wx_ad_text_clean.csv",header=None, names=["0", "Q_text", "Ans"])
+df = df[[ "Q_text", "Ans"]]
 QA_api_server = "http://127.0.0.1:1333/v1/QA/add"
 
 
@@ -41,9 +41,9 @@ index_name = 'qa_index_768'
 for i in range(df.shape[0]):
     
     
-    Q_text = df.loc[i, 'KEY']
-    Ans = df.loc[i,"URL"]
-    id  = Ans.split('/guide/')[1]  # 腾讯广告
+    Q_text = df.loc[i, 'Q_text']
+    Ans = df.loc[i,"Ans"]
+    id  = "83"+str(i)  # 企业微信帮助中心
     print(Q_text)
     
     embedding = model.encode(Q_text, convert_to_tensor=True)
