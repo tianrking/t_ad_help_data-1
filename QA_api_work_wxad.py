@@ -35,9 +35,9 @@ client = OpenSearch(
 )
 
 id=1
-
-df = pd.read_csv("./data/ad_weixin_qq_com_guide_titile_clean.csv",header=None, names=["0", "Q_text", "Ans"])
-df = df[[ "Q_text", "Ans"]]
+# ['Q','A','URL']
+df = pd.read_csv("./data/ad_weixin_qq_com_guide_titile_clean.csv",header=None, names=["0", "Q_text", "Ans",'URL'])
+df = df[[ "Q_text", 'URL']]
 
 index_name = 'qa_index_384'
 # 'Access-Control-Allow-Origin'

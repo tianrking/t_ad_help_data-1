@@ -6,10 +6,12 @@ from opensearchpy import OpenSearch
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
 
-df = pd.read_csv("/home/tianrking/t_ad_help_data/data/work_wx_ad_text_clean.csv",header=None, names=["0", "Q_text", "Ans"])
+df = pd.read_csv("/home/tianrking/t_ad_help_data/data/work_wx_ad_text_with_url.csv",header=None, names=["0", "Q_text", "Ans_text","Ans"])
 df = df[[ "Q_text", "Ans"]]
 QA_api_server = "http://127.0.0.1:1333/v1/QA/add"
 
+# print(df.head(1))
+# exit()
 
 host = 'localhost'
 port = 9200
