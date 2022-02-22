@@ -128,10 +128,14 @@ def create_item(item: Item_sts):
 
     return_data = {}
     
+    time=0
     for i in response['hits']['hits']:
         print(i['_source']['Q_text'],i['_source']['Ans'],i['_score'],i['_id'])
         # return {'ANS':i['_source']['Ans']}
         # return_data.update('Q_text':i['_source']['Q_text'])
         # return { 'answer':response}
-
-    # return { 'answer':response}
+        return_data[time] = {'Q':i['_source']['Q_text'],'Score':i['_score'],'Ans':i['_source']['Ans']}  # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
+        time = time + 1
+    # print(return_data)
+    # print(type(return_data))  dict2json
+    return  json.dumps(return_data) 
