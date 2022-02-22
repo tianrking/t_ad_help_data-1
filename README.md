@@ -11,6 +11,7 @@ uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
 ### curl test
 
 里面的数据类型需要调整成int 和bool 待完善
+其中 /v1/QA/search 为通用接口 /v1/QA/search/jzmh 为句子秒回回调接口
 
 ```bash
 curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H 'Content-Type: application/json' -d' 
