@@ -58,6 +58,7 @@ flowchart LR
   Q_text_x --> Opensearch --> Q_ans_X
   Opensearch --> Q_vec_X
   Opensearch --> Q_text_X
+  Opensearch --> Q_score_X
 
   B1 --> B2
   B2 --> B3
