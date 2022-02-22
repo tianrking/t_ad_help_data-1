@@ -38,7 +38,7 @@ id=1
 
 df = pd.read_csv("/home/tianrking/t_ad_help_data/data/ad_weixin_qq_com_guide_titile_clean.csv")
 print(df.head())
-index_name = 'qa_index_384'
+index_name = 'qa_index_768'
 # 'Access-Control-Allow-Origin'
 app = FastAPI()
 app.add_middleware(

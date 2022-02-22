@@ -4,7 +4,7 @@ from opensearchpy import OpenSearch
 
 
 from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
 
 df = pd.read_csv(
     "/home/tianrking/t_ad_help_data/data/ad_weixin_qq_com_guide_titile_clean.csv")
@@ -35,7 +35,7 @@ client = OpenSearch(
 )
 
 # Create an index with non-default settings.
-index_name = 'qa_index_384'
+index_name = 'qa_index_768'
 
 
 for i in range(df.shape[0]):
