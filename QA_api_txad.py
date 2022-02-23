@@ -204,7 +204,7 @@ def create_item(item: Item_jzmh):
     # print(type(return_data))  dict2json
     
     ###########################
-    ###########################  MESSAGE SEND BLOCK
+    ###########################  MESSAGE SEND BLOCK 
     
     url_jzmh_message_send = "https://ex-api.botorange.com/message/send"
     jzmh_message = json.dumps(return_data)
@@ -219,7 +219,7 @@ def create_item(item: Item_jzmh):
             "text": str(return_data).replace('{',"").replace('}',"") ,
             "mention": [] # mention list, you can only set it when you send text message to room,
         },
-        "externalRequestId": "", # nullable, 会在回调中原样带回的字段，需要保证唯一（当不唯一时报错）
+        "externalRequestId": "",
     }
     
     # newjson=json.dumps(jzmh_message,ensure_ascii=False) 
@@ -231,6 +231,5 @@ def create_item(item: Item_jzmh):
     ############################
     ###########################
     
-    return {'a':"我"}
     # return  json.dumps(return_data) 
 
