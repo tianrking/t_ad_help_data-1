@@ -10,8 +10,9 @@ uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
 
 ### curl test
 
-里面的数据类型需要调整成int 和bool 待完善
-其中 /v1/QA/search 为通用接口 /v1/QA/search/jzmh 为句子秒回回调接口 payload 为讯息 目前还不是标准格式 但是可以用于测试 即修改 payload后文字 测试对应查询
+~~里面的数据类型需要调整成int 和bool 待完善~~
+~~其中 /v1/QA/search 为通用接口 /v1/QA/search/jzmh 为句子秒回回调接口 payload 为讯息 目前还不是标准格式 但是可以用于测试 即修改 payload后文字 测试对应查询~~
+已经是标准格式 可以直接本地测试 修改 payload.text 更换测试问题  目前 2 数据准备重新爬取一下  其它两个已经全部录入 在脚本中script/Quick_update.py 简单修改参数即可使用 只要是 Q A [TEXT,url] 就可以录入 
 
 ```bash
 curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H "charset=UTF-8" -H 'Content-Type: application/json' -d' 
