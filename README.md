@@ -30,8 +30,8 @@ curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H "charset=UTF-8" -H 'Conten
     "timestamp": 1585995128441,
     "token": "5dbe8221fc191f13bc072908",
     "botId": "5d0c86971150c017984cee66",
-    "contactType": "1",
-    "coworker": "false", 
+    "contactType": 1,
+    "coworker": false, 
     "botId": "5d0c86971150c017984cee77",
     "botWxid": "1688851085873555",
     "botWeixin": "123"

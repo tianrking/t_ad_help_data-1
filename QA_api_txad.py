@@ -155,11 +155,11 @@ class Item_jzmh(BaseModel):
     contactId: Optional[str] = ""
     payload: Optional[Payload_Struct] = ""
     type: Optional[str] = ""
-    timestamp: Optional[str] = "" # message timestamp
+    timestamp: Optional[int] = "" # message timestamp
     token: Optional[str] = "" # token
     botId: Optional[str] = "" # botId
-    contactType: Optional[str] = ""
-    coworker: Optional[str] = "" # is coworker or not
+    contactType: Optional[int] = ""
+    coworker: Optional[bool] = "" # is coworker or not
     botId: Optional[str] = ""
     botWxid: Optional[str] = ""
     botWeixin: Optional[str] = ""
