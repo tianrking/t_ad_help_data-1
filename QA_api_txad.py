@@ -15,6 +15,7 @@ from pydantic import BaseModel
 import requests # only for JZMH
 
 from sentence_transformers import SentenceTransformer, util
+from sympy import content
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
 
 host = 'localhost'
@@ -143,6 +144,7 @@ def create_item(item: Item_sts):
 # 暂时仅仅处理文字 
 class Payload_Struct(BaseModel):
     text:str
+
 class Item_jzmh(BaseModel):
     messageId: Optional[str] = ""
     chatId: Optional[str] = "" # juzi system chatId
@@ -165,7 +167,10 @@ class Item_jzmh(BaseModel):
 
 @app.post("/v1/QA/search/jzmh/message")
 def create_item(item: Item_jzmh):
-    search_text = item.payload.text
+    try:
+        search_text = item.payload.text
+    except:
+        search_text = item.payload.content
     embedding = model.encode(search_text, convert_to_tensor=True)
     _Q_vec = embedding.tolist()
     
