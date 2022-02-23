@@ -142,7 +142,7 @@ def create_item(item: Item_sts):
     # print(type(return_data))  dict2json
     return  json.dumps(return_data) 
 
-## test the json struct
+## 测试 json 的结构 以便确认构造是否正确
 @app.post("/v1/QA/search/jzmh/messagee")
 async def veiw_server_json(request : Request):
     data_json =  await request.json()
