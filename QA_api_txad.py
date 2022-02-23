@@ -14,6 +14,7 @@ from fastapi import FastAPI, Header
 from pydantic import BaseModel
 import requests # only for JZMH
 
+
 from sentence_transformers import SentenceTransformer, util
 from sympy import content
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
@@ -141,11 +142,23 @@ def create_item(item: Item_sts):
     # print(type(return_data))  dict2json
     return  json.dumps(return_data) 
 
+## test the json struct
+@app.post("/v1/QA/search/jzmh/messagee")
+async def veiw_server_json(request : Request):
+    data_json =  await request.json()
+    print(data_json)
+    
+    data_body =  await request.body()
+    print(data_body)
+    
+
+
 # 暂时仅仅处理文字 
 class Payload_Struct(BaseModel):
+    # text:Optional[str] = ""
     text:str
 
-class Item_jzmh(BaseModel):
+class Item_jzmh_data(BaseModel):
     messageId: Optional[str] = ""
     chatId: Optional[str] = "" # juzi system chatId
     avatar: Optional[str] = ""
@@ -165,12 +178,20 @@ class Item_jzmh(BaseModel):
     botWxid: Optional[str] = ""
     botWeixin: Optional[str] = ""
 
+class Item_jzmh(BaseModel):
+    data:Optional[Item_jzmh_data]= ""
+
 @app.post("/v1/QA/search/jzmh/message")
-def create_item(item: Item_jzmh):
-    try:
-        search_text = item.payload.text
-    except:
-        search_text = item.payload.content
+async def create_item(item: Item_jzmh,request : Request):
+    
+    # print(item)
+    # return
+    # try:
+    # data =  await request.json()
+    # print(data)
+    search_text = item.data.payload.text
+    # except:
+    #     search_text = item.payload.content
     embedding = model.encode(search_text, convert_to_tensor=True)
     _Q_vec = embedding.tolist()
     
@@ -214,9 +235,9 @@ def create_item(item: Item_jzmh):
     jzmh_message = json.dumps(return_data)
     
     send_messageId = "6214b19ea66c67d78d0f133d"
-    print(item.messageId)
+    print(item.data.messageId)
     jzmh_data = {
-        "chatId":  item.chatId, #"6214b19ea66c67d78d0f133d",
+        "chatId":  item.data.chatId, #"6214b19ea66c67d78d0f133d",
         "token": "6214b16a39011db76498866b",
         "messageType": 0 , # MessageType, check below
         "payload": {
