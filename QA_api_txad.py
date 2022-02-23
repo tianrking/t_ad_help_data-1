@@ -12,7 +12,7 @@ from fastapi import FastAPI,File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Header
 from pydantic import BaseModel
-
+import requests # only for JZMH
 
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
@@ -188,6 +188,7 @@ def create_item(item: Item_jzmh):
     )
     print('\nSearch results: %s' %str(search_text))
 
+    return_data_sturct = {}
     return_data = {}
     
     time=0
@@ -196,7 +197,8 @@ def create_item(item: Item_jzmh):
         # return {'ANS':i['_source']['Ans']}
         # return_data.update('Q_text':i['_source']['Q_text'])
         # return { 'answer':response}
-        return_data[time] = {'Q':i['_source']['Q_text'],'Score':i['_score'],'Ans':i['_source']['Ans']}  # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
+        return_data_sturct[time] = {'Q':i['_source']['Q_text'],'Score':i['_score'],'Ans':i['_source']['Ans']}  # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
+        return_data[time] = i['_source']['Q_text']+' '+ i['_source']['Ans']+ ' '
         time = time + 1
     # print(return_data)
     # print(type(return_data))  dict2json
@@ -204,11 +206,31 @@ def create_item(item: Item_jzmh):
     ###########################
     ###########################  MESSAGE SEND BLOCK
     
+    url_jzmh_message_send = "https://ex-api.botorange.com/message/send"
+    jzmh_message = json.dumps(return_data)
     
+    send_messageId = "6214b19ea66c67d78d0f133d"
+    print(item.messageId)
+    jzmh_data = {
+        "chatId": item.chatId,
+        "token": "6214b16a39011db76498866b",
+        "messageType": 0 , # MessageType, check below
+        "payload": {
+            "text": str(return_data).replace('{',"").replace('}',"") ,
+            "mention": [] # mention list, you can only set it when you send text message to room,
+        },
+        "externalRequestId": "", # nullable, 会在回调中原样带回的字段，需要保证唯一（当不唯一时报错）
+    }
     
+    # newjson=json.dumps(jzmh_message,ensure_ascii=False) 
+    
+    jzmh_headers = {'Content-Type': 'application/json'}
+    
+    res = requests.post(url=url_jzmh_message_send, headers=jzmh_headers, data=json.dumps(jzmh_data))
+
     ############################
     ###########################
     
-    
-    return  json.dumps(return_data) 
+    return {'a':"我"}
+    # return  json.dumps(return_data) 
 

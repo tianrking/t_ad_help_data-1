@@ -11,14 +11,14 @@ url = "https://ex-api.botorange.com/message/send"
 
 
 data = {
-  "chatId": "6214b19ea66c67d78d0f15ef",
+  "chatId": "6214b19ea66c67d78d0f133d",
   "token": "6214b16a39011db76498866b",
   "messageType": 0 , # MessageType, check below
   "payload": {
-    "text": "测试信息请忽略",
+    "text": "测试消息",
     "mention": [] # mention list, you can only set it when you send text message to room,
   },
-  "externalRequestId": "1", # nullable, 会在回调中原样带回的字段，需要保证唯一（当不唯一时报错）
+  "externalRequestId": "", # nullable, 会在回调中原样带回的字段，需要保证唯一（当不唯一时报错）
 }
 # data = json.dumps(data)
 # data = {
