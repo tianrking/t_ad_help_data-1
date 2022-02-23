@@ -14,7 +14,7 @@ uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
 其中 /v1/QA/search 为通用接口 /v1/QA/search/jzmh 为句子秒回回调接口 payload 为讯息 目前还不是标准格式 但是可以用于测试 即修改 payload后文字 测试对应查询
 
 ```bash
-curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H 'Content-Type: application/json' -d' 
+curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H "charset=UTF-8" -H 'Content-Type: application/json' -d' 
 {
     "messageId": "2422188041612737714", 
     "chatId": "5e469a2b8d429806b0fef189",
@@ -23,7 +23,9 @@ curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H 'Content-Type: application
     "roomId": "7215325536@chatroom",
     "contactName": "小北",
     "contactId": "wxid_rr9ej1o8xv9h21",
-    "payload": "问题",
+    "payload": {
+        "text": "我通过了你的联系人验证请求，现在我们可以开始聊天了"
+    },
     "type": "MsgType",
     "timestamp": 1585995128441,
     "token": "5dbe8221fc191f13bc072908",
@@ -33,7 +35,7 @@ curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H 'Content-Type: application
     "botId": "5d0c86971150c017984cee77",
     "botWxid": "1688851085873555",
     "botWeixin": "123"
-  }
+}
 '
 ```
 

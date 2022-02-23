@@ -140,6 +140,10 @@ def create_item(item: Item_sts):
     # print(type(return_data))  dict2json
     return  json.dumps(return_data) 
 
+# 暂时仅仅处理文字 
+class Payload_Struct(BaseModel):
+    text:str
+
 
 class Item_jzmh(BaseModel):
     messageId: Optional[str] = ""
@@ -149,7 +153,7 @@ class Item_jzmh(BaseModel):
     roomId: Optional[str] = "" # room wxid nullable
     contactName: Optional[str] = "" # message conact name
     contactId: Optional[str] = ""
-    payload: Optional[str] = ""
+    payload: Optional[Payload_Struct] = ""
     type: Optional[str] = ""
     timestamp: Optional[str] = "" # message timestamp
     token: Optional[str] = "" # token
@@ -162,7 +166,7 @@ class Item_jzmh(BaseModel):
 
 @app.post("/v1/QA/search/jzmh")
 def create_item(item: Item_jzmh):
-    search_text = item.payload
+    search_text = item.payload.text
     embedding = model.encode(search_text, convert_to_tensor=True)
     _Q_vec = embedding.tolist()
     
