@@ -15,7 +15,8 @@ uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
 已经是标准格式 可以直接本地测试 修改 payload.text 更换测试问题  目前 2 数据准备重新爬取一下  其它两个已经全部录入 在脚本中script/Quick_update.py 简单修改参数即可使用 只要是 Q A [TEXT,url] 就可以录入 
 
 ```bash
-curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H "charset=UTF-8" -H 'Content-Type: application/json' -d' 
+//http://69.231.141.164/fastapi/v1/QA/search/jzmh 127.0.0.1:1333/v1/QA/search/jzmh
+curl -X POST -k "http://69.231.141.164/fastapi/v1/QA/search/jzmh/message" -H "charset=UTF-8" -H 'Content-Type: application/json' -d' 
 {
     "messageId": "2422188041612737714", 
     "chatId": "5e469a2b8d429806b0fef189",
@@ -27,7 +28,33 @@ curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H "charset=UTF-8" -H 'Conten
     "payload": {
         "text": "怎么使用朋友圈"
     },
-    "type": "MsgType",
+    "type": 7,
+    "timestamp": 1585995128441,
+    "token": "5dbe8221fc191f13bc072908",
+    "botId": "5d0c86971150c017984cee66",
+    "contactType": 1,
+    "coworker": false, 
+    "botId": "5d0c86971150c017984cee77",
+    "botWxid": "1688851085873555",
+    "botWeixin": "123"
+}
+'
+```
+
+```bash
+curl -X POST -k "http://69.231.141.164/fastapi/v1/QA/search/jzmh/sentResult" -H "charset=UTF-8" -H 'Content-Type: application/json' -d' 
+{
+    "messageId": "2422188041612737714", 
+    "chatId": "5e469a2b8d429806b0fef189",
+    "avatar": "a",
+    "roomTopic": "abc",
+    "roomId": "7215325536@chatroom",
+    "contactName": "小北",
+    "contactId": "wxid_rr9ej1o8xv9h21",
+    "payload": {
+        ""text": "怎么使用朋友圈"
+    },
+    "type": 0,
     "timestamp": 1585995128441,
     "token": "5dbe8221fc191f13bc072908",
     "botId": "5d0c86971150c017984cee66",

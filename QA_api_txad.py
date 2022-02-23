@@ -143,8 +143,6 @@ def create_item(item: Item_sts):
 # 暂时仅仅处理文字 
 class Payload_Struct(BaseModel):
     text:str
-
-
 class Item_jzmh(BaseModel):
     messageId: Optional[str] = ""
     chatId: Optional[str] = "" # juzi system chatId
@@ -154,6 +152,7 @@ class Item_jzmh(BaseModel):
     contactName: Optional[str] = "" # message conact name
     contactId: Optional[str] = ""
     payload: Optional[Payload_Struct] = ""
+    # payload: Optional[Payload_Struct] = None
     type: Optional[str] = ""
     timestamp: Optional[int] = "" # message timestamp
     token: Optional[str] = "" # token
@@ -164,7 +163,7 @@ class Item_jzmh(BaseModel):
     botWxid: Optional[str] = ""
     botWeixin: Optional[str] = ""
 
-@app.post("/v1/QA/search/jzmh")
+@app.post("/v1/QA/search/jzmh/message")
 def create_item(item: Item_jzmh):
     search_text = item.payload.text
     embedding = model.encode(search_text, convert_to_tensor=True)
@@ -212,7 +211,7 @@ def create_item(item: Item_jzmh):
     send_messageId = "6214b19ea66c67d78d0f133d"
     print(item.messageId)
     jzmh_data = {
-        "chatId": item.chatId,
+        "chatId":  item.chatId, #"6214b19ea66c67d78d0f133d",
         "token": "6214b16a39011db76498866b",
         "messageType": 0 , # MessageType, check below
         "payload": {
