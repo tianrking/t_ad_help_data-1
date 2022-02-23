@@ -216,7 +216,7 @@ async def create_item(item: Item_jzmh,request : Request):
     return_data_sturct = {}
     return_data = {}
     
-    time=0
+    time=1 
     for i in response['hits']['hits']:
         print(i['_source']['Q_text'],i['_source']['Ans'],i['_score'],i['_id'])
         # return {'ANS':i['_source']['Ans']}

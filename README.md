@@ -18,6 +18,7 @@ uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
 //http://69.231.141.164/fastapi/v1/QA/search/jzmh 127.0.0.1:1333/v1/QA/search/jzmh
 curl -X POST -k "http://69.231.141.164/fastapi/v1/QA/search/jzmh/message" -H "charset=UTF-8" -H 'Content-Type: application/json' -d' 
 {
+    "data":{
     "messageId": "2422188041612737714", 
     "chatId": "5e469a2b8d429806b0fef189",
     "avatar": "a",
@@ -37,6 +38,7 @@ curl -X POST -k "http://69.231.141.164/fastapi/v1/QA/search/jzmh/message" -H "ch
     "botId": "5d0c86971150c017984cee77",
     "botWxid": "1688851085873555",
     "botWeixin": "123"
+    }
 }
 '
 ```
