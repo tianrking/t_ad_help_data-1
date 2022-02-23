@@ -24,7 +24,7 @@ curl -X POST -k "127.0.0.1:1333/v1/QA/search/jzmh" -H "charset=UTF-8" -H 'Conten
     "contactName": "小北",
     "contactId": "wxid_rr9ej1o8xv9h21",
     "payload": {
-        "text": "我通过了你的联系人验证请求，现在我们可以开始聊天了"
+        "text": "怎么使用朋友圈"
     },
     "type": "MsgType",
     "timestamp": 1585995128441,
