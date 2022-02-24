@@ -127,6 +127,14 @@ flowchart LR
   B2 --> B3
   ```
 
+## todo
+
+- 腾讯广告帮助中心 数据检查  
+- 尝试把已有文档 格式规范化 录入飞书
+- 层次索引
+- 微信广告中西 子标题爬取
+- 短链api
+
 ## WIKI
 
 ~~当csv数据更新的时候 或想实现其他功能的时候 需要使用新的索引[create_index.py](#create_index.py) ，对于此项目包含每一个数据的构造。 如 idea tree , 每一个 data 中都含有 Q_text , Q_vec , Q_ans 三个属性 分别对应标准查询问题，及其对应的向量，以及Q_ans 对应的回答。~~

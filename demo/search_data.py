@@ -28,12 +28,13 @@ client = OpenSearch(
 # Create an index with non-default settings.
 index_name = 'qa_index_768'
 
+_Q = "数据"
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
-embedding = model.encode("朋友圈信息流", convert_to_tensor=True)
+embedding = model.encode(_Q, convert_to_tensor=True)
 Q_vec = embedding.tolist()
 
 query = {
-    'size': 5,
+    'size': 8,
     'query': {
         "knn": {
             "Q_vec": {
@@ -54,19 +55,34 @@ return_data = {}
 
 time = 1
 
+return_message_str = ""
+
+_score_=0.3
+
 for i in response['hits']['hits']:
-    print(i['_source']['Q_text'], i['_source']['Ans'], i['_score'], i['_id'])
+    # print(i['_source']['Q_text'], i['_source']['Ans'], i['_score'], i['_id'])
+    if i['_score']>_score_:
+        return_message_str = return_message_str + i['_source']['Q_text'] + "\n" + \
+            i['_source']['Ans'] + "\n"
+        
     # return {'ANS':i['_source']['Ans']}
     # return_data.update('Q_text':i['_source']['Q_text'])
     # return { 'answer':response}
     # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
-    return_data_sturct[time] = {
-        'Q': i['_source']['Q_text'], 'Score': i['_score'], 'Ans': i['_source']['Ans']}
-    return_data[time] = i['_source']['Q_text'] + \
-        ' ' + i['_source']['Ans'] + ' '
-    time = time + 1
+    
+    
+    
+    # return_data_sturct[time] = {
+    #     'Q': i['_source']['Q_text'], 'Score': i['_score'], 'Ans': i['_source']['Ans']}
+    # return_data[time] = i['_source']['Q_text'] + \
+    #     ' ' + i['_source']['Ans'] + ' '
+    # time = time + 1
 
-print('\nSearch results:')
-print(return_data)
+print('\nSearch results for %s with %s:' % (_Q,str(_score_)))
+if len(return_message_str):
+    print(return_message_str)
+else:
+    print("请咨询人工客服")
+# print(return_data)
 
 # print(response)
