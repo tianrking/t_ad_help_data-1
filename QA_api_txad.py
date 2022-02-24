@@ -223,9 +223,12 @@ async def create_item(item: Item_jzmh,request : Request):
         # return_data.update('Q_text':i['_source']['Q_text'])
         # return { 'answer':response}
         return_data_sturct[time] = {'Q':i['_source']['Q_text'],'Score':i['_score'],'Ans':i['_source']['Ans']}  # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
-        return_data[time] = i['_source']['Q_text']+' '+ i['_source']['Ans']+ ' '
+        return_data[time] = i['_source']['Q_text']+"\n"+ i['_source']['Ans']+ " "
         time = time + 1
     # print(return_data)
+    format_return_data = ""
+    for i in return_data:
+        format_return_data = format_return_data  + "%s. "%i + return_data[i] + "\n"
     # print(type(return_data))  dict2json
     
     ###########################
@@ -241,7 +244,7 @@ async def create_item(item: Item_jzmh,request : Request):
         "token": "6214b16a39011db76498866b",
         "messageType": 0 , # MessageType, check below
         "payload": {
-            "text": str(return_data).replace('{',"").replace('}',"") ,
+            "text": format_return_data ,# str(return_data).replace('{',"").replace('}',"") ,
             "mention": [] # mention list, you can only set it when you send text message to room,
         },
         "externalRequestId": "",
