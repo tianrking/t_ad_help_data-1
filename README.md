@@ -286,3 +286,17 @@ fastapi                   0.68.2                   pypi_0    pypi
 uvicorn                   0.15.0                   pypi_0    pypi
 sentence-transformers              2.1.0
 transformers                       4.16.2
+```
+
+#### Nginx proxy
+
+```site-enabled/nginx.conf
+server {
+    listen 80;
+    server_name 69.231.141.164;
+    location /fastapi/ {
+        rewrite ^/fastapi/(.*)$ /$1 break;
+        proxy_pass http://127.0.0.1:1333;
+    }
+}
+```
