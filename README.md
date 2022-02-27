@@ -12,7 +12,7 @@
 ```
 docker build -t ad_help .
 
-docker run -d -p 1333:1333 --name adhelp --restart=always ad_help
+docker run -d --network=host --name adhelp --restart=always ad_help
 ```
 
 current QA sheet: [https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff](https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff)
