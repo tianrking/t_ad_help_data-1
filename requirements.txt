@@ -1,7 +1,10 @@
 fastapi
-"uvicorn[standard]"
+uvicorn[standard]
 python-multipart
 pandas
-opensearchpy
+opensearch-py
 sentence-transformers
 transformers
+requests
+tqdm
+itsdangerous==2.0.1

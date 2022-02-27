@@ -1,5 +1,11 @@
 #
 
+## Datasource
+
+- https://e.qq.com/ads/helpcenter/
+- https://ad.weixin.qq.com/guide
+- https://open.work.weixin.qq.com/help2/pc?person_id=1
+
 ## 直接运行
 
 ### api
@@ -7,6 +13,10 @@
 ```bash
 uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
 ```
+
+### 句客宝文档
+
+https://docs.juzibot.com/instant-reply-legacy/#%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF
 
 ### curl test
 
