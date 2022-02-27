@@ -11,7 +11,7 @@
 ### api
 
 ```bash
-uvicorn QA_api_txad:app --reload --host 0.0.0.0 --port 1333
+uvicorn main:app --reload --host 0.0.0.0 --port 1333
 ```
 
 ### 句客宝文档
