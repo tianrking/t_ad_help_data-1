@@ -11,6 +11,8 @@
 
 ```
 docker build -t ad_help .
+
+docker run -d -p 1337:1337 --name adhelp --restart=always ad_help
 ```
 
 current QA sheet: [https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff](https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff)
