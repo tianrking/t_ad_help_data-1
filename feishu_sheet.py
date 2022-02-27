@@ -1,3 +1,7 @@
+"""
+Export feishu sheets as pandas
+"""
+
 import os
 import requests
 import pandas as pd
@@ -31,13 +35,19 @@ def fetch_table_by_range(
     sheet='dc2aff',
 ):
     """
+    https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff
+    例如start=A1，end=B2，那么获取的就是包括A1, B1, A2, B2这样的矩阵
     Args:
-        value_range: dc2aff是sheetid，A1到D100
+        spreadsheetToken: 如上面url，shtcnmY1KOKGOAXRi11q0XEtkSb 就是
+        sheet: sheet，也是飞书文档里面的url中的sheet参数，如上面url，dc2aff就是，如果URL不存在，可以建立一个新的sheet，然后在不同sheet之间切换一下就有了
+        start: 单元格开始
+        end: 单元格结束
     """
     value_range = f'{sheet}!{start}:{end}'
         
+    # doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTMzUjL4EzM14COxMTN
     ret2 = requests.get(
-        f'https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/{spreadsheetToken}/values/{value_range}',
+        f'https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/{spreadsheetToken}/values/{value_range}?valueRenderOption=ToString&dateTimeRenderOption=FormattedString',
         headers={
             'Authorization': f'Bearer {tenant_access_token}',
             'Content-Type': 'application/json; charset=utf-8',

@@ -6,6 +6,15 @@
 - https://ad.weixin.qq.com/guide
 - https://open.work.weixin.qq.com/help2/pc?person_id=1
 
+
+## build & run
+
+```
+docker build -t ad_help .
+```
+
+current QA sheet: [https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff](https://juzihudong.feishu.cn/sheets/shtcnmY1KOKGOAXRi11q0XEtkSb?sheet=dc2aff)
+
 ## 直接运行
 
 ### api
