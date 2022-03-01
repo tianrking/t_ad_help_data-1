@@ -35,7 +35,8 @@ def update(df):
         document = {
             'Q_text': question,
             'Q_vec': _Q_vec,
-            'Ans': url,
+            'Ans_text':answer,
+            'Ans_url': url,
             'Q_type': qtype,
         }
         response = client.index(
@@ -50,7 +51,7 @@ if __name__ == '__main__':
     df = fetch_table_by_range(
         spreadsheetToken='shtcnmY1KOKGOAXRi11q0XEtkSb',
         start='A1',
-        end='D1000',
+        end='D1200',
         sheet='dc2aff',
     )
     update(df)
