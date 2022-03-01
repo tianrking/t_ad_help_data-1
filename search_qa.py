@@ -63,20 +63,23 @@ def search_qa_format(query, size=5):
         }
         for i, x in enumerate(response)
     ]
+    response = sorted(response, key=lambda x: x['sim'], reverse=True)
+    print(response)
     if response[0]['sim'] >= 0.9:
-        response = response[:1]
-        response[0]['text'] = response[0]['text'][3:]
+        response = [x for x in response if x['sim'] >= 0.9]
     elif response[0]['sim'] >= 0.8:
-        response = response[:2]
+        response = [x for i, x in enumerate(response) if i < 2 or x['sim'] >= 0.8]
     elif response[0]['sim'] >= 0.7:
-        response = response[:3]
+        response = [x for i, x in enumerate(response) if i < 3 or x['sim'] >= 0.7]
     elif response[0]['sim'] >= 0.6:
-        response = response[:5]
+        response = [x for i, x in enumerate(response) if i < 5 or x['sim'] >= 0.6]
     else:
         return '我找不到这个问题的答案，您是不是要问：\n' + '\n'.join([
             f"{i + 1}. {x['q']} ( {x['url']} ) "
             for i, x in enumerate(response[:3])
         ])
+    if len(response) == 1:
+        response[0]['text'] = response[0]['text'][3:]
     # print(response)
     return '\n'.join(map(lambda x: x['text'], response))
 
@@ -122,7 +125,7 @@ def search_qa_format(query, size=5):
 
 
 if __name__ == '__main__':
-    print(search_qa_format('如何发起发人验证'))
+    print(search_qa_format('申请流程'))
     while True:
         i = input('> ')
         print(search_qa_format(i))

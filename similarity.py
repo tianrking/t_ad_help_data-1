@@ -7,6 +7,8 @@ def similarity(a, b):
     """
     @TODO 以后修改，先随便写一个相似度判断
     """
+    if a in b or b in a:
+        return 1.0
     a = jieba.lcut(a, cut_all=True)
     b = jieba.lcut(b, cut_all=True)
     a, b = set(a), set(b)
