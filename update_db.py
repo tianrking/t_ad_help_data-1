@@ -51,7 +51,7 @@ if __name__ == '__main__':
     df = fetch_table_by_range(
         spreadsheetToken='shtcnmY1KOKGOAXRi11q0XEtkSb',
         start='A1',
-        end='D1200',
+        end='D2000',
         sheet='dc2aff',
     )
     update(df)

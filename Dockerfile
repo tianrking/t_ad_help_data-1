@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 COPY --chown=qhduan:qhduan ./encode.py .
 RUN python encode.py
 COPY --chown=qhduan:qhduan . .
-CMD ["/usr/local/bin/python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "1333"]
+CMD ["/usr/local/bin/python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "1334"]

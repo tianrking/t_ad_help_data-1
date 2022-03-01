@@ -2,13 +2,14 @@
 
 from open_search import client, index_name
 from encode import encode
+from similarity import similarity
 
 
 def search_qa(query, size=5):
-    _Q_vec = encode(query)
+    # _Q_vec = encode(query)
 
     query = {
-        '_source': ['Q_text', 'Ans_url', 'Q_vec', "Ans_text"],
+        '_source': ['Q_text', 'Ans_url', "Ans_text"],
         'size': size,
         'query': {
             "bool": {
@@ -16,19 +17,25 @@ def search_qa(query, size=5):
                     {
                         "knn": {
                             "Q_vec": {
-                                "vector": _Q_vec,
-                                "k": 2
+                                "vector": encode(query),
+                                "k": 3,
                             }
                         }
                     },
                     {
-                        "match_phrase": {
-                            "Q_text": query
+                        "match": {
+                            "Q_text": {
+                                "query": query,
+                                "boost": 1,
+                            }
                         }
                     },
                     {
-                        "match_phrase": {
-                            "Ans_text": query
+                        "match": {
+                            "Ans_text": {
+                                "query": query,
+                                "boost": 0.1,
+                            }
                         }
                     }
                 ]
@@ -43,37 +50,67 @@ def search_qa(query, size=5):
     return response
 
 
-def search_qa_format(query,size=5):
-    response = search_qa(query,size)
-    return_data_sturct = {}
-    return_data = {}
-    return_data_score = {}
+def search_qa_format(query, size=5):
+    response = search_qa(query, size)
+    print(response)
+    response = [x['_source'] for x in response['hits']['hits']]
+    response = [
+        {
+            'q': x['Q_text'],
+            'url': x['Ans_url'],
+            'sim': similarity(x['Q_text'], query),
+            'text': f'{i + 1}. {x["Q_text"]}\n{x["Ans_url"]}'
+        }
+        for i, x in enumerate(response)
+    ]
+    if response[0]['sim'] >= 0.9:
+        response = response[:1]
+        response[0]['text'] = response[0]['text'][3:]
+    elif response[0]['sim'] >= 0.8:
+        response = response[:2]
+    elif response[0]['sim'] >= 0.7:
+        response = response[:3]
+    elif response[0]['sim'] >= 0.6:
+        response = response[:5]
+    else:
+        return '我找不到这个问题的答案，您是不是要问：\n' + '\n'.join([
+            f"{i + 1}. {x['q']} ( {x['url']} ) "
+            for i, x in enumerate(response[:3])
+        ])
+    # print(response)
+    return '\n'.join(map(lambda x: x['text'], response))
+
+
+    # return_data_sturct = {}
+    # return_data = {}
+    # return_data_score = {}
+
+
     
-    time = 1
-    for i in response['hits']['hits']:
-        print(i['_source']['Q_text'], i['_source']
-              ['Ans_url'], i['_score'], i['_id'])
-        # return {'ANS':i['_source']['Ans']}
-        # return_data.update('Q_text':i['_source']['Q_text'])
-        # return { 'answer':response}
-        # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
-        return_data_sturct[time] = {
-            'Q': i['_source']['Q_text'], 'Score': i['_score'], 'Ans': i['_source']['Ans_url']}
-        return_data[time] = i['_source']['Q_text'] + \
-            "\n" + i['_source']['Ans_url'] + " "
-        return_data_score[time] = i['_score']
-        # print(i['_score'])
-        if i['_score'] >= 1:
-            time = time + 1
+    # time = 1
+    # for i in response['hits']['hits']:
+    #     print(i['_source'])
+    #     # return {'ANS':i['_source']['Ans']}
+    #     # return_data.update('Q_text':i['_source']['Q_text'])
+    #     # return { 'answer':response}
+    #     # {'Q_text':i['_source']['Q_text'],'Ans':i['_source']['Ans'],'Score':i['_score']}
+    #     return_data_sturct[time] = {
+    #         'Q': i['_source']['Q_text'], 'Score': i['_score'], 'Ans': i['_source']['Ans_url']}
+    #     return_data[time] = i['_source']['Q_text'] + \
+    #         "\n" + i['_source']['Ans_url'] + " "
+    #     return_data_score[time] = i['_score']
+    #     # print(i['_score'])
+    #     if i['_score'] >= 1:
+    #         time = time + 1
             
-    # print(return_data)
+    # # print(return_data)
 
-    format_return_data = ""
+    # format_return_data = ""
 
-    for i in return_data:
-        format_return_data = format_return_data + \
-                    "%s. " % i + return_data[i] + "\n"
-    return format_return_data + "\n需要更多帮助请输 /help"
+    # for i in return_data:
+    #     format_return_data = format_return_data + \
+    #                 "%s. " % i + return_data[i] + "\n"
+    # return format_return_data  # + "\n需要更多帮助请输 /help"
     # try:
     #     for i in return_data:
     #         if return_data_score[time-1] >= 0:
@@ -85,4 +122,7 @@ def search_qa_format(query,size=5):
 
 
 if __name__ == '__main__':
-    search_qa_format('广告')
+    print(search_qa_format('如何发起发人验证'))
+    while True:
+        i = input('> ')
+        print(search_qa_format(i))
