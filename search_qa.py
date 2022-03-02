@@ -59,7 +59,7 @@ def search_qa_format(query, size=5):
             'q': x['Q_text'],
             'url': x['Ans_url'],
             'sim': similarity(x['Q_text'], query),
-            'text': f'{i + 1}. {x["Q_text"]}\n{x["Ans_url"]}'
+            'text': f'{x["Q_text"]}\n{x["Ans_url"]}'
         }
         for i, x in enumerate(response)
     ]
@@ -80,6 +80,9 @@ def search_qa_format(query, size=5):
         ])
     if len(response) == 1:
         response[0]['text'] = response[0]['text'][3:]
+    elif len(response) > 1:
+        for i, x in enumerate(response):
+            x['text'] = f"{i + 1}. {x['text']}"
     # print(response)
     return '\n'.join(map(lambda x: x['text'], response))
 
