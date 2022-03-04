@@ -1,0 +1,84 @@
+{
+    "mappings": {
+        "properties": {
+            "Ans_text": {
+                "type": "text",
+                "analyzer": "han_bigrams",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "Ans_url": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "Q_text": {
+                "type": "text",
+                "analyzer": "han_bigrams",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "Q_type": {
+                "type": "text",
+                "analyzer": "han_bigrams",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "Q_vec": {
+                "type": "knn_vector",
+                "dimension": 768,
+                "method": {
+                    "engine": "nmslib",
+                    "space_type": "l2",
+                    "name": "hnsw",
+                    "parameters": {
+                        "ef_construction": 128,
+                        "m": 24
+                    }
+                }
+            }
+        }
+    },
+    "settings": {
+        "index": {
+            "knn": true
+        },
+        "analysis": {
+            "analyzer": {
+                "han_bigrams": {
+                    "tokenizer": "standard",
+                    "filter": [
+                        "han_bigrams_filter"
+                    ]
+                }
+            },
+            "filter": {
+                "han_bigrams_filter": {
+                    "type": "cjk_bigram",
+                    "ignored_scripts": [
+                        "hangul",
+                        "hiragana",
+                        "katakana"
+                    ],
+                    "output_unigrams": true
+                }
+            }
+        }
+    }
+}

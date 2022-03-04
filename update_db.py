@@ -35,7 +35,7 @@ def update(df):
         document = {
             'Q_text': question,
             'Q_vec': _Q_vec,
-            'Ans_text':answer,
+            'Ans_text': answer,
             'Ans_url': url,
             'Q_type': qtype,
         }
