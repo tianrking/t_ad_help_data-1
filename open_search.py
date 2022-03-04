@@ -4,10 +4,14 @@ curl -k https://admin:admin@localhost:9200/qa_index_768?pretty
 """
 
 import os
+import json
 from opensearchpy import OpenSearch
 
 
-index_name = os.environ.get('index', 'qa_index_768')
+current_dir = os.path.realpath(os.path.dirname(__file__))
+index_name = os.environ.get('INDEX', 'qa_index_768')
+config_index_name = os.environ.get('CONFIG_INDEX', 'qa_config')
+
 host = os.environ.get('host', 'localhost')
 port = int(os.environ.get('port', 9200))
 auth = (
@@ -27,3 +31,6 @@ client = OpenSearch(
     ssl_show_warn = False,
     # ca_certs = ca_certs_path
 )
+
+response = client.indices.create(index_name, body=json.load(open(os.path.join(current_dir, 'index_settings.json'))), ignore=400)
+response = client.indices.create(config_index_name, body={}, ignore=400)
